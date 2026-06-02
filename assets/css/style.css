@@ -2485,12 +2485,19 @@ ul.extra-skills li i {
     display: none;
 }
 
+.contact-form-feedback {
+    margin-top: 18px;
+    min-height: 40px;
+}
+
 .input-success {
     border: 1px solid #01B500;
+    color: #01B500;
 }
 
 .input-error {
     border: 1px solid #ff0000;
+    color: #ff4d4f;
 }
 
 .has-error .help-block.with-errors {

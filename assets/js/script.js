@@ -297,45 +297,58 @@ Version      : 1.0
 
 
 
-    /*
-     * ----------------------------------------------------------------------------------------
-     *  AJAX CONTACT JS
-     * ----------------------------------------------------------------------------------------
-     */
+    // Contact form is handled by formsubmit.co without page redirect.
+    if ($("#contactForm").length) {
+        $("#contactForm").on("submit", function (e) {
+            e.preventDefault();
 
-    // Function for email address validation
-    function isValidEmail(emailAddress) {
-        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+            var $form = $(this);
+            var $feedback = $form.closest(".contact-form-area").parent().find(".contact-form-feedback");
+            var $success = $feedback.find(".input-success");
+            var $error = $feedback.find(".input-error");
+            var defaultErrorText = $.trim($error.text());
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        return pattern.test(emailAddress);
+            function setErrorMessage(message) {
+                $error.text(message || defaultErrorText);
+            }
 
-    }
-    $("#contactForm").on('submit', function(e) {
-        e.preventDefault();
-        var data = {
-            name: $("#name").val(),
-            email: $("#email").val(),
-            subject: $("#subject").val(),
-            message: $("#message").val()
-        };
+            function showStatus($target, $other) {
+                $other.stop(true, true).fadeOut(150);
+                $target.stop(true, true).fadeIn(400).delay(5000).fadeOut(400);
+            }
 
-        if (isValidEmail(data['email']) && (data['message'].length > 1) && (data['name'].length > 1) && (data['subject'].length > 1)) {
+            var name = $.trim($form.find("#name").val());
+            var email = $.trim($form.find("#email").val());
+            var subject = $.trim($form.find("#subject").val());
+            var message = $.trim($form.find("#message").val());
+
+            if (!emailPattern.test(email)) {
+                setErrorMessage("Please enter a valid email address.");
+                showStatus($error, $success);
+                return;
+            }
+
+            
+
+            // Restore default error text for request-time failures.
+            setErrorMessage(defaultErrorText);
+
             $.ajax({
                 type: "POST",
-                url: "sendmail.php",
-                data: data,
-                success: function() {
-                    $('#contactForm .input-success').delay(500).fadeIn(1000);
-                    $('#contactForm .input-error').fadeOut(500);
+                url: "https://formsubmit.co/ajax/alnafi.eng@gmail.com",
+                data: $form.serialize(),
+                dataType: "json",
+                success: function () {
+                    showStatus($success, $error);
+                    $form.trigger("reset");
+                },
+                error: function () {
+                    showStatus($error, $success);
                 }
             });
-        } else {
-            $('#contactForm .input-error').delay(500).fadeIn(1000);
-            $('#contactForm .input-success').fadeOut(500);
-        }
-
-        return false;
-    });
+        });
+    }
 
 
     /* ==========================================================================
