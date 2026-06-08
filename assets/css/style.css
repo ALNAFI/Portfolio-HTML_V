@@ -1391,7 +1391,6 @@ html {
 * ----------------------------------------------------------------------------------------
 */
 .about-area {
-    padding-top: 100px;
     padding-bottom: 100px;
 }
 
@@ -3417,21 +3416,6 @@ ul.blog_pagination li a:hover {
     padding: 25px;
     border: 1px solid var(--border-color);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .company-design-area {
     padding: 100px 0px;
