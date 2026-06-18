@@ -80,6 +80,18 @@ Version      : 1.0
         padding-top: 50px;
     }
 
+    .skill-items-grid {
+        gap: 20px;
+    }
+
+    .skill-category-card {
+        padding: 24px 22px 20px;
+    }
+
+    .skill-category-title {
+        font-size: 18px;
+    }
+
     .services-area {
         padding-top: 80px;
         padding-bottom: 80px;
@@ -354,6 +366,42 @@ Version      : 1.0
 
     .skill-area {
         padding-top: 50px;
+    }
+
+    .skill-items-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .skill-category-card {
+        padding: 22px 20px 18px;
+    }
+
+    .skill-category-card-wide {
+        grid-column: auto;
+    }
+
+    .skill-category-heading {
+        gap: 12px;
+    }
+
+    .skill-category-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .skill-category-title {
+        font-size: 17px;
+    }
+
+    .skill-pill {
+        padding: 9px 14px 9px 11px;
+    }
+
+    .skill-pill span {
+        font-size: 12px;
+        white-space: normal;
     }
 
     .services-area {
